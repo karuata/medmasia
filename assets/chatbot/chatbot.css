@@ -21,10 +21,10 @@
 .apex-chatbot__input{border:1px solid rgba(27,26,20,.18);background:#fffef9;border-radius:4px;padding:11px 12px;font:inherit;font-size:.9rem;min-width:0}
 .apex-chatbot__send{border:1px solid #201e17;background:#201e17;color:#ede9de;border-radius:4px;display:grid;place-items:center;cursor:pointer}
 .apex-chatbot__send svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.apex-chatbot__lead{display:grid;gap:8px;max-width:100%;border-radius:8px}
-.apex-chatbot__lead input,.apex-chatbot__lead textarea{border:1px solid rgba(27,26,20,.16);border-radius:4px;padding:9px 10px;font:inherit;font-size:.84rem;background:#fffef9}
-.apex-chatbot__lead label{display:flex;gap:8px;align-items:flex-start;font-size:.78rem;color:#565247}
-.apex-chatbot__lead button{border:1px solid #201e17;background:#201e17;color:#ede9de;border-radius:4px;padding:10px;font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.apex-chatbot__context{display:grid;gap:8px;max-width:100%;border-radius:8px}
+.apex-chatbot__context input,.apex-chatbot__context textarea{border:1px solid rgba(27,26,20,.16);border-radius:4px;padding:9px 10px;font:inherit;font-size:.84rem;background:#fffef9}
+.apex-chatbot__context label{display:flex;gap:8px;align-items:flex-start;font-size:.78rem;color:#565247}
+.apex-chatbot__context button{border:1px solid #201e17;background:#201e17;color:#ede9de;border-radius:4px;padding:10px;font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
 @media (max-width:560px){
   .apex-chatbot{right:14px;bottom:14px}
   .apex-chatbot__button{width:54px;height:54px}

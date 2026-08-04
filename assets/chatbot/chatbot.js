@@ -6,7 +6,7 @@
   const copy={
     kicker:"Assistente",
     title:"MedMasIA Assistant",
-    intro:"Sou o assistente do MedMasIA. Posso ajudar a entender onde a rotina da clínica está vazando contexto: leads sem retorno, documentos espalhados, decisões sem registro e equipe dependente da memória do médico. Para dados clínicos ou casos sensíveis, o melhor caminho é uma conversa reservada.",
+    intro:"Sou o assistente do MedMasIA. Posso ajudar a entender onde a rotina da clínica está vazando contexto: potenciais pacientes sem retorno, documentos espalhados, decisões sem registro e equipe dependente da memória do médico. Para dados clínicos ou casos sensíveis, o melhor caminho é uma conversa reservada.",
     placeholder:"Digite sua pergunta",
     sendLabel:"Enviar",
     closeLabel:"Fechar",
@@ -24,12 +24,12 @@
     entries:[
       {
         keys:["vazando","vaza","perdendo","caos","rotina","memoria","memória","whatsapp","gargalo"],
-        answer:"Os vazamentos mais comuns são: lead sem dono, documento espalhado, decisão sem registro, equipe perguntando a mesma coisa e médico gestor virando sistema operacional da clínica. O MedMasIA começa mapeando um fluxo real antes de implantar qualquer automação.",
+        answer:"Os vazamentos mais comuns são: paciente sem retorno, documento espalhado, decisão sem registro, equipe perguntando a mesma coisa e médico gestor virando sistema operacional da clínica. O MedMasIA começa mapeando um fluxo real antes de implantar qualquer automação.",
         links:[{label:"Ver dor",href:"#problem"},{label:"Diagnóstico",href:"#contact"}]
       },
       {
         keys:["pacote","programa","oferta","inclui","comprando","implantacao","implantação"],
-        answer:"MedMasIA é um programa de mentoria e implantação, não apenas uma ferramenta. O pacote combina sessões semanais, configuração guiada de um twin via WhatsApp, BridgeBot para leads, base de conhecimento, rotina de decisões e regras de governança clínica.",
+        answer:"MedMasIA é um programa de mentoria e implantação, não apenas uma ferramenta. O pacote combina sessões semanais, configuração guiada de um twin via WhatsApp, BridgeBot de relacionamento com pacientes, base de conhecimento, rotina de decisões e regras de governança clínica.",
         links:[{label:"Ver pacote",href:"#offer"},{label:"Entregáveis",href:"#deliverables"}]
       },
       {
@@ -39,7 +39,7 @@
       },
       {
         keys:["mentoria","aprender","zero","0","sessoes","semanais","ia","nivel","nível","maturidade","iniciante"],
-        answer:"A mentoria muda conforme o ponto de partida. Para quem começa, cobre uso seguro e prompts. Para quem já usa IA, transforma improviso em rotina. Para clínicas mais maduras, foca equipe, métricas, governança, lead manager e evolução dos produtos implantados.",
+        answer:"A mentoria muda conforme o ponto de partida. Para quem começa, cobre uso seguro e prompts. Para quem já usa IA, transforma improviso em rotina. Para clínicas mais maduras, foca equipe, métricas, governança, relacionamento com pacientes e evolução dos produtos implantados.",
         links:[{label:"Ver níveis",href:"#levels"},{label:"Frentes",href:"#mentoria"}]
       },
       {
@@ -48,8 +48,8 @@
         links:[{label:"Ver níveis",href:"#levels"},{label:"Entregáveis",href:"#deliverables"}]
       },
       {
-        keys:["lead","leads","agenda","agendamento","bridgebot","paciente","conversao","crm"],
-        answer:"O BridgeBot é o lead manager do pacote. Ele pode responder perguntas aprovadas, qualificar interesse, capturar contexto, sinalizar handoff humano e preparar o próximo passo para agenda ou equipe comercial. Integrações reais de agenda/CRM dependem do escopo da clínica.",
+        keys:["agenda","agendamento","bridgebot","paciente","pacientes","conversao","crm","relacionamento"],
+        answer:"O BridgeBot é o fluxo de relacionamento com potenciais pacientes. Ele pode responder perguntas aprovadas, entender intenção, capturar contexto mínimo, sinalizar handoff humano e preparar o próximo passo para a equipe. Integrações reais de agenda, CRM ou prontuário dependem do escopo técnico da clínica.",
         links:[{label:"Ver oferta",href:"#offer"},{label:"Solicitar conversa",href:"#contact"}]
       },
       {
@@ -64,12 +64,12 @@
       },
       {
         keys:["preco","valor","custa","contratar","disponibilidade","orcamento"],
-        answer:"Formato e investimento dependem do escopo: duração do programa, quantidade de sessões, twin, BridgeBot, documentos, equipe, agenda, suporte e nível de governança. O primeiro passo é um diagnóstico de 30 minutos.",
+        answer:"Formato e investimento dependem do escopo: duração do programa, quantidade de sessões, twin, BridgeBot, documentos, equipe, integrações necessárias, suporte e nível de governança. O primeiro passo é um diagnóstico de 30 minutos.",
         links:[{label:"Solicitar conversa",href:"#contact"},{label:"Email",href:`mailto:${email}`}]
       },
       {
         keys:["quem","publico","medico","clinica","dono","gestor","empreendedor"],
-        answer:"A oferta foi desenhada para médicos gestores, donos de clínicas, especialistas com alta demanda, empreendedores em saúde e equipes premium que precisam organizar decisões, documentos, leads e rotina com IA.",
+        answer:"A oferta foi desenhada para médicos gestores, donos de clínicas, especialistas com alta demanda, empreendedores em saúde e equipes premium que precisam organizar decisões, documentos, pacientes e rotina com IA.",
         links:[{label:"Para quem",href:"#forwhom"},{label:"Solicitar conversa",href:"#contact"}]
       }
     ]
@@ -168,13 +168,13 @@
     return payload;
   }
 
-  function addLeadForm(){
+  function addContextForm(){
     const base=apiBase();
     const sessionId=sessionStorage.getItem(sessionKey)||"";
     const log=root.querySelector(".apex-chatbot__messages");
-    if(!base||!sessionId||!log||root.querySelector(".apex-chatbot__lead"))return;
+    if(!base||!sessionId||!log||root.querySelector(".apex-chatbot__context"))return;
     const form=document.createElement("form");
-    form.className="apex-chatbot__lead apex-chatbot__msg apex-chatbot__msg--bot";
+    form.className="apex-chatbot__context apex-chatbot__msg apex-chatbot__msg--bot";
     form.innerHTML=`
       <input name="name" type="text" autocomplete="name" placeholder="Nome" required>
       <input name="clinic" type="text" autocomplete="organization" placeholder="Clinica ou especialidade">
@@ -203,7 +203,7 @@
           headers:{"Content-Type":"application/json"},
           body:JSON.stringify(payload)
         });
-        if(!response.ok)throw new Error(`Lead ${response.status}`);
+        if(!response.ok)throw new Error(`Registro ${response.status}`);
         form.remove();
         addMessage("Contexto registrado. A conversa foi marcada para revisão humana.","bot",[{label:"Contato",href:"#contact"}]);
       }catch(_){
@@ -237,7 +237,7 @@
         loading.remove();
         const links=payload.collect_lead?[{label:"Solicitar conversa",href:"#contact"}]:[];
         addMessage(payload.answer,"bot",links);
-        if(payload.collect_lead)addLeadForm();
+        if(payload.collect_lead)addContextForm();
         return;
       }
     }catch(_){

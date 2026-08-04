@@ -186,6 +186,9 @@ section{padding:104px 0}
 .not-do>span{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);white-space:nowrap}
 .not-do div{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
 .not-do b{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;border:1px solid var(--line-2);border-radius:999px;padding:.62rem .78rem;color:var(--ink-2);background:rgba(236,233,225,.5)}
+.scope-note{margin-top:24px;display:grid;grid-template-columns:180px 1fr;gap:24px;border:1px solid var(--line);border-radius:6px;background:rgba(236,233,225,.48);padding-top:22px;padding-bottom:22px}
+.scope-note span{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.scope-note p{max-width:82ch;color:var(--ink-2);font-size:.95rem}
 
 .forwhom{background:var(--paper-3)}
 .for-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:60px;align-items:center}
@@ -236,6 +239,7 @@ footer{background:#171610;color:var(--on-dark-2);padding:34px 0}
   .weeks div:before{content:"";position:absolute;left:-4px;top:28px;width:9px;height:9px;border-radius:50%;background:var(--gold)}
   .not-do{display:grid;gap:16px}
   .not-do div{justify-content:flex-start}
+  .scope-note{grid-template-columns:1fr;gap:10px}
   .footer-inner{display:grid}
 }
 
