@@ -14,10 +14,10 @@
     fallback:"Não tenho contexto suficiente para responder com precisão. Para um caso específico, recomendo uma conversa inicial para entender sua rotina, equipe, documentos e riscos.",
     fallbackLinks:[{label:"Solicitar conversa",href:"#contact"},{label:"Email",href:`mailto:${email}`}],
     suggestions:[
-      "O que está incluído no pacote?",
-      "Como funciona a mentoria?",
+      "O que é o twin?",
+      "Já uso IA. O que muda?",
       "Isso substitui decisão clínica?",
-      "Como ajuda leads e agenda?",
+      "Integra com agenda ou CRM?",
       "O que fica funcionando?"
     ],
     entries:[
@@ -27,14 +27,19 @@
         links:[{label:"Ver pacote",href:"#offer"},{label:"Entregáveis",href:"#deliverables"}]
       },
       {
-        keys:["digital twin","twin","whatsapp","assistente","sirius"],
-        answer:"O twin via WhatsApp é um dos produtos implantados no programa. Ele ajuda a capturar pendências, organizar documentos, lembrar decisões, buscar contexto e encaminhar próximos passos para médico gestor e equipe autorizada.",
-        links:[{label:"Ver twin",href:"#twin"},{label:"Solicitar conversa",href:"#contact"}]
+        keys:["digital twin","twin","whatsapp","assistente","sirius","o que e","o que é"],
+        answer:"No MedMasIA, twin é uma memória operacional conversável no WhatsApp. Ele não é um clone do médico. Ele ajuda a transformar mensagens, documentos, áudios e decisões soltas em contexto pesquisável, pendências, próximos passos e respostas baseadas no que foi aprovado.",
+        links:[{label:"Entender twin",href:"#what-is-twin"},{label:"Produtos",href:"#twin"}]
       },
       {
-        keys:["mentoria","aprender","zero","0","sessoes","semanais","ia"],
-        answer:"A mentoria é a camada que garante adoção. Toda semana o médico gestor e pessoas-chave revisam casos de uso, prompts, limites clínicos, riscos, rotina da equipe e evolução dos produtos implantados.",
-        links:[{label:"Ver mentoria",href:"#mentoria"},{label:"Solicitar conversa",href:"#contact"}]
+        keys:["mentoria","aprender","zero","0","sessoes","semanais","ia","nivel","nível","maturidade","iniciante"],
+        answer:"A mentoria muda conforme o ponto de partida. Para quem começa, cobre uso seguro e prompts. Para quem já usa IA, transforma improviso em rotina. Para clínicas mais maduras, foca equipe, métricas, governança, lead manager e evolução dos produtos implantados.",
+        links:[{label:"Ver níveis",href:"#levels"},{label:"Frentes",href:"#mentoria"}]
+      },
+      {
+        keys:["ja uso","já uso","avancado","avançado","chatgpt","gpt","crm","processo"],
+        answer:"Se você já usa IA, o valor não é aprender o básico. É transformar uso individual em capacidade operacional: base aprovada, fluxos com equipe, critérios de handoff, métricas, revisão de risco e produtos implantados na rotina da clínica.",
+        links:[{label:"Ver níveis",href:"#levels"},{label:"Entregáveis",href:"#deliverables"}]
       },
       {
         keys:["lead","leads","agenda","agendamento","bridgebot","paciente","conversao","crm"],
@@ -47,8 +52,8 @@
         links:[{label:"Ver entregáveis",href:"#deliverables"},{label:"Solicitar conversa",href:"#contact"}]
       },
       {
-        keys:["diagnostico","prescricao","conduta","clinica","substitui","risco","lgpd","privacidade"],
-        answer:"MedMasIA não posiciona IA como médico autônomo. Conduta, diagnóstico, prescrição e relação médico-paciente continuam sob responsabilidade profissional. A IA apoia organização, memória, triagem operacional, decisão assistida e documentação, com governança e handoff humano.",
+        keys:["diagnostico","prescricao","conduta","clinica","substitui","risco","lgpd","privacidade","não faz","nao faz"],
+        answer:"MedMasIA não posiciona IA como médico autônomo. Não faz diagnóstico autônomo, prescrição automática ou conduta clínica sem revisão. A IA apoia organização, memória, triagem operacional, decisão assistida e documentação, com governança e handoff humano.",
         links:[{label:"Ver governança",href:"#governanca"},{label:"Solicitar conversa",href:"#contact"}]
       },
       {
