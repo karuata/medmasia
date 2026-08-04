@@ -6,7 +6,7 @@
   const copy={
     kicker:"Assistente",
     title:"MedMasIA Assistant",
-    intro:"Sou o assistente do MedMasIA. Posso explicar a mentoria, o digital twin de WhatsApp, a gestão de documentos, o pipeline de decisões e o BridgeBot para leads. Para dados clínicos ou casos sensíveis, o melhor caminho é uma conversa reservada.",
+    intro:"Sou o assistente do MedMasIA. Posso explicar o programa de implantação assistida: mentoria semanal, twin via WhatsApp, BridgeBot de leads, gestão de documentos e governança clínica. Para dados clínicos ou casos sensíveis, o melhor caminho é uma conversa reservada.",
     placeholder:"Digite sua pergunta",
     sendLabel:"Enviar",
     closeLabel:"Fechar",
@@ -14,32 +14,37 @@
     fallback:"Não tenho contexto suficiente para responder com precisão. Para um caso específico, recomendo uma conversa inicial para entender sua rotina, equipe, documentos e riscos.",
     fallbackLinks:[{label:"Solicitar conversa",href:"#contact"},{label:"Email",href:`mailto:${email}`}],
     suggestions:[
-      "O que é o digital twin médico?",
+      "O que está incluído no pacote?",
       "Como funciona a mentoria?",
       "Isso substitui decisão clínica?",
       "Como ajuda leads e agenda?",
-      "Quais documentos posso organizar?"
+      "O que fica funcionando?"
     ],
     entries:[
       {
+        keys:["pacote","programa","oferta","inclui","comprando","implantacao","implantação"],
+        answer:"MedMasIA é um programa de mentoria e implantação, não apenas uma ferramenta. O pacote combina sessões semanais, configuração guiada de um twin via WhatsApp, BridgeBot para leads, base de conhecimento, rotina de decisões e regras de governança clínica.",
+        links:[{label:"Ver pacote",href:"#offer"},{label:"Entregáveis",href:"#deliverables"}]
+      },
+      {
         keys:["digital twin","twin","whatsapp","assistente","sirius"],
-        answer:"O digital twin médico usa WhatsApp como interface simples para capturar mensagens, lembrar pendências, organizar documentos, resumir contexto e ajudar a encaminhar decisões. Ele apoia a rotina pessoal, organizacional e documental do médico, mas não substitui julgamento clínico.",
+        answer:"O twin via WhatsApp é um dos produtos implantados no programa. Ele ajuda a capturar pendências, organizar documentos, lembrar decisões, buscar contexto e encaminhar próximos passos para médico gestor e equipe autorizada.",
         links:[{label:"Ver twin",href:"#twin"},{label:"Solicitar conversa",href:"#contact"}]
       },
       {
         keys:["mentoria","aprender","zero","0","sessoes","semanais","ia"],
-        answer:"A mentoria ensina IA do 0 ao 1 em sessões semanais enquanto um produto real é implantado. O foco é uso prático: prompts, limites clínicos, documentos, memória, lead manager, agenda, equipe e governança.",
+        answer:"A mentoria é a camada que garante adoção. Toda semana o médico gestor e pessoas-chave revisam casos de uso, prompts, limites clínicos, riscos, rotina da equipe e evolução dos produtos implantados.",
         links:[{label:"Ver mentoria",href:"#mentoria"},{label:"Solicitar conversa",href:"#contact"}]
       },
       {
         keys:["lead","leads","agenda","agendamento","bridgebot","paciente","conversao","crm"],
-        answer:"O BridgeBot entra como camada de atendimento inicial e registro: responde perguntas aprovadas, qualifica leads, captura contexto, sinaliza handoff humano e prepara o próximo passo para agenda ou equipe comercial da clínica.",
+        answer:"O BridgeBot é o lead manager do pacote. Ele pode responder perguntas aprovadas, qualificar interesse, capturar contexto, sinalizar handoff humano e preparar o próximo passo para agenda ou equipe comercial. Integrações reais de agenda/CRM dependem do escopo da clínica.",
         links:[{label:"Ver oferta",href:"#offer"},{label:"Solicitar conversa",href:"#contact"}]
       },
       {
-        keys:["documento","documentos","pdf","exame","contrato","protocolo","prontuario","arquivo"],
+        keys:["documento","documentos","pdf","exame","contrato","protocolo","prontuario","arquivo","entregavel","entregáveis","funcionando"],
         answer:"A camada de conhecimento pode organizar documentos pessoais, administrativos, organizacionais e médicos quando houver permissão e ambiente adequado. Exemplos: protocolos, contratos, treinamentos, orientações, exames, políticas e materiais da clínica.",
-        links:[{label:"Ver twin",href:"#twin"},{label:"Solicitar conversa",href:"#contact"}]
+        links:[{label:"Ver entregáveis",href:"#deliverables"},{label:"Solicitar conversa",href:"#contact"}]
       },
       {
         keys:["diagnostico","prescricao","conduta","clinica","substitui","risco","lgpd","privacidade"],
@@ -48,7 +53,7 @@
       },
       {
         keys:["preco","valor","custa","contratar","disponibilidade","orcamento"],
-        answer:"Formato e investimento dependem do escopo: mentoria, twin, BridgeBot, quantidade de documentos, equipe, agenda e nível de governança. O primeiro passo é uma conversa de 30 minutos para desenhar o mandato inicial.",
+        answer:"Formato e investimento dependem do escopo: duração do programa, quantidade de sessões, twin, BridgeBot, documentos, equipe, agenda, suporte e nível de governança. O primeiro passo é um diagnóstico de 30 minutos.",
         links:[{label:"Solicitar conversa",href:"#contact"},{label:"Email",href:`mailto:${email}`}]
       },
       {
@@ -134,8 +139,6 @@
   function apiBase(){
     const explicit=root.dataset.apiUrl||window.MEDMASIA_BRIDGEBOT_API_URL||"";
     if(explicit)return explicit.replace(/\/+$/,"");
-    const host=window.location.hostname;
-    if(host==="127.0.0.1"||host==="localhost"||host==="")return "http://127.0.0.1:8091";
     return "";
   }
 
