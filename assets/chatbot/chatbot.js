@@ -6,7 +6,7 @@
   const copy={
     kicker:"Assistente",
     title:"MedMasIA Assistant",
-    intro:"Sou o assistente do MedMasIA. Posso explicar o programa de implantação assistida: mentoria semanal, twin via WhatsApp, BridgeBot de leads, gestão de documentos e governança clínica. Para dados clínicos ou casos sensíveis, o melhor caminho é uma conversa reservada.",
+    intro:"Sou o assistente do MedMasIA. Posso ajudar a entender onde a rotina da clínica está vazando contexto: leads sem retorno, documentos espalhados, decisões sem registro e equipe dependente da memória do médico. Para dados clínicos ou casos sensíveis, o melhor caminho é uma conversa reservada.",
     placeholder:"Digite sua pergunta",
     sendLabel:"Enviar",
     closeLabel:"Fechar",
@@ -14,6 +14,7 @@
     fallback:"Não tenho contexto suficiente para responder com precisão. Para um caso específico, recomendo uma conversa inicial para entender sua rotina, equipe, documentos e riscos.",
     fallbackLinks:[{label:"Solicitar conversa",href:"#contact"},{label:"Email",href:`mailto:${email}`}],
     suggestions:[
+      "Onde minha rotina está vazando?",
       "O que é o twin?",
       "Já uso IA. O que muda?",
       "Isso substitui decisão clínica?",
@@ -21,6 +22,11 @@
       "O que fica funcionando?"
     ],
     entries:[
+      {
+        keys:["vazando","vaza","perdendo","caos","rotina","memoria","memória","whatsapp","gargalo"],
+        answer:"Os vazamentos mais comuns são: lead sem dono, documento espalhado, decisão sem registro, equipe perguntando a mesma coisa e médico gestor virando sistema operacional da clínica. O MedMasIA começa mapeando um fluxo real antes de implantar qualquer automação.",
+        links:[{label:"Ver dor",href:"#problem"},{label:"Diagnóstico",href:"#contact"}]
+      },
       {
         keys:["pacote","programa","oferta","inclui","comprando","implantacao","implantação"],
         answer:"MedMasIA é um programa de mentoria e implantação, não apenas uma ferramenta. O pacote combina sessões semanais, configuração guiada de um twin via WhatsApp, BridgeBot para leads, base de conhecimento, rotina de decisões e regras de governança clínica.",
