@@ -1,0 +1,237 @@
+(function(){
+  const root=document.getElementById("apex-chatbot");
+  if(!root)return;
+  const email="rodrigomasini.ai@gmail.com";
+  const sessionKey="medmasia_bridgebot_session_id";
+  const copy={
+    kicker:"Assistente",
+    title:"MedMasIA Assistant",
+    intro:"Sou o assistente do MedMasIA. Posso explicar a mentoria, o digital twin de WhatsApp, a gestão de documentos, o pipeline de decisões e o BridgeBot para leads. Para dados clínicos ou casos sensíveis, o melhor caminho é uma conversa reservada.",
+    placeholder:"Digite sua pergunta",
+    sendLabel:"Enviar",
+    closeLabel:"Fechar",
+    openLabel:"Abrir assistente",
+    fallback:"Não tenho contexto suficiente para responder com precisão. Para um caso específico, recomendo uma conversa inicial para entender sua rotina, equipe, documentos e riscos.",
+    fallbackLinks:[{label:"Solicitar conversa",href:"#contact"},{label:"Email",href:`mailto:${email}`}],
+    suggestions:[
+      "O que é o digital twin médico?",
+      "Como funciona a mentoria?",
+      "Isso substitui decisão clínica?",
+      "Como ajuda leads e agenda?",
+      "Quais documentos posso organizar?"
+    ],
+    entries:[
+      {
+        keys:["digital twin","twin","whatsapp","assistente","sirius"],
+        answer:"O digital twin médico usa WhatsApp como interface simples para capturar mensagens, lembrar pendências, organizar documentos, resumir contexto e ajudar a encaminhar decisões. Ele apoia a rotina pessoal, organizacional e documental do médico, mas não substitui julgamento clínico.",
+        links:[{label:"Ver twin",href:"#twin"},{label:"Solicitar conversa",href:"#contact"}]
+      },
+      {
+        keys:["mentoria","aprender","zero","0","sessoes","semanais","ia"],
+        answer:"A mentoria ensina IA do 0 ao 1 em sessões semanais enquanto um produto real é implantado. O foco é uso prático: prompts, limites clínicos, documentos, memória, lead manager, agenda, equipe e governança.",
+        links:[{label:"Ver mentoria",href:"#mentoria"},{label:"Solicitar conversa",href:"#contact"}]
+      },
+      {
+        keys:["lead","leads","agenda","agendamento","bridgebot","paciente","conversao","crm"],
+        answer:"O BridgeBot entra como camada de atendimento inicial e registro: responde perguntas aprovadas, qualifica leads, captura contexto, sinaliza handoff humano e prepara o próximo passo para agenda ou equipe comercial da clínica.",
+        links:[{label:"Ver oferta",href:"#offer"},{label:"Solicitar conversa",href:"#contact"}]
+      },
+      {
+        keys:["documento","documentos","pdf","exame","contrato","protocolo","prontuario","arquivo"],
+        answer:"A camada de conhecimento pode organizar documentos pessoais, administrativos, organizacionais e médicos quando houver permissão e ambiente adequado. Exemplos: protocolos, contratos, treinamentos, orientações, exames, políticas e materiais da clínica.",
+        links:[{label:"Ver twin",href:"#twin"},{label:"Solicitar conversa",href:"#contact"}]
+      },
+      {
+        keys:["diagnostico","prescricao","conduta","clinica","substitui","risco","lgpd","privacidade"],
+        answer:"MedMasIA não posiciona IA como médico autônomo. Conduta, diagnóstico, prescrição e relação médico-paciente continuam sob responsabilidade profissional. A IA apoia organização, memória, triagem operacional, decisão assistida e documentação, com governança e handoff humano.",
+        links:[{label:"Ver governança",href:"#governanca"},{label:"Solicitar conversa",href:"#contact"}]
+      },
+      {
+        keys:["preco","valor","custa","contratar","disponibilidade","orcamento"],
+        answer:"Formato e investimento dependem do escopo: mentoria, twin, BridgeBot, quantidade de documentos, equipe, agenda e nível de governança. O primeiro passo é uma conversa de 30 minutos para desenhar o mandato inicial.",
+        links:[{label:"Solicitar conversa",href:"#contact"},{label:"Email",href:`mailto:${email}`}]
+      },
+      {
+        keys:["quem","publico","medico","clinica","dono","gestor","empreendedor"],
+        answer:"A oferta foi desenhada para médicos gestores, donos de clínicas, especialistas com alta demanda, empreendedores em saúde e equipes premium que precisam organizar decisões, documentos, leads e rotina com IA.",
+        links:[{label:"Para quem",href:"#forwhom"},{label:"Solicitar conversa",href:"#contact"}]
+      }
+    ]
+  };
+  const normalize=(value)=>String(value||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+
+  function renderShell(){
+    root.className="apex-chatbot";
+    root.innerHTML="";
+    const button=document.createElement("button");
+    button.className="apex-chatbot__button";
+    button.type="button";
+    button.setAttribute("aria-label",copy.openLabel);
+    button.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 6.5h15v9h-8l-4.5 3v-3H4.5z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg>';
+    const panel=document.createElement("section");
+    panel.className="apex-chatbot__panel";
+    panel.setAttribute("aria-label",copy.title);
+    panel.innerHTML=`
+      <div class="apex-chatbot__foil"></div>
+      <div class="apex-chatbot__head">
+        <div><div class="apex-chatbot__kicker">${copy.kicker}</div><div class="apex-chatbot__title">${copy.title}</div></div>
+        <button class="apex-chatbot__close" type="button" aria-label="${copy.closeLabel}">x</button>
+      </div>
+      <div class="apex-chatbot__messages" role="log" aria-live="polite"></div>
+      <div class="apex-chatbot__suggestions"></div>
+      <form class="apex-chatbot__form">
+        <input class="apex-chatbot__input" type="text" autocomplete="off" placeholder="${copy.placeholder}">
+        <button class="apex-chatbot__send" type="submit" aria-label="${copy.sendLabel}">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </button>
+      </form>`;
+    root.append(panel,button);
+    button.addEventListener("click",()=>root.classList.toggle("is-open"));
+    panel.querySelector(".apex-chatbot__close").addEventListener("click",()=>root.classList.remove("is-open"));
+    panel.querySelector(".apex-chatbot__form").addEventListener("submit",(event)=>{
+      event.preventDefault();
+      const input=panel.querySelector(".apex-chatbot__input");
+      ask(input.value);
+      input.value="";
+    });
+    copy.suggestions.forEach((suggestion)=>{
+      const chip=document.createElement("button");
+      chip.type="button";
+      chip.textContent=suggestion;
+      chip.addEventListener("click",()=>ask(suggestion));
+      panel.querySelector(".apex-chatbot__suggestions").appendChild(chip);
+    });
+    addMessage(copy.intro,"bot");
+    if(window.location.hash==="#chatbot"||window.location.hash==="#apex-chatbot")root.classList.add("is-open");
+  }
+
+  function addMessage(text,who,links){
+    const log=root.querySelector(".apex-chatbot__messages");
+    if(!log)return null;
+    const message=document.createElement("div");
+    message.className=`apex-chatbot__msg apex-chatbot__msg--${who}`;
+    const body=document.createElement("p");
+    body.textContent=text;
+    message.appendChild(body);
+    if(links&&links.length){
+      const row=document.createElement("div");
+      row.className="apex-chatbot__links";
+      links.forEach((link)=>{
+        const a=document.createElement("a");
+        a.className="apex-chatbot__link";
+        a.href=link.href;
+        a.textContent=link.label;
+        if(link.href.startsWith("mailto:"))a.setAttribute("target","_blank");
+        row.appendChild(a);
+      });
+      message.appendChild(row);
+    }
+    log.appendChild(message);
+    log.scrollTop=log.scrollHeight;
+    return message;
+  }
+
+  function apiBase(){
+    const explicit=root.dataset.apiUrl||window.MEDMASIA_BRIDGEBOT_API_URL||"";
+    if(explicit)return explicit.replace(/\/+$/,"");
+    const host=window.location.hostname;
+    if(host==="127.0.0.1"||host==="localhost"||host==="")return "http://127.0.0.1:8091";
+    return "";
+  }
+
+  async function askBridgeBot(question){
+    const base=apiBase();
+    if(!base)return null;
+    const sessionId=sessionStorage.getItem(sessionKey)||"";
+    const response=await fetch(`${base}/api/chat`,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({message:question,session_id:sessionId,language:"pt-BR",site:"medmasia"})
+    });
+    if(!response.ok)throw new Error(`BridgeBot ${response.status}`);
+    const payload=await response.json();
+    if(payload.session_id)sessionStorage.setItem(sessionKey,payload.session_id);
+    return payload;
+  }
+
+  function addLeadForm(){
+    const base=apiBase();
+    const sessionId=sessionStorage.getItem(sessionKey)||"";
+    const log=root.querySelector(".apex-chatbot__messages");
+    if(!base||!sessionId||!log||root.querySelector(".apex-chatbot__lead"))return;
+    const form=document.createElement("form");
+    form.className="apex-chatbot__lead apex-chatbot__msg apex-chatbot__msg--bot";
+    form.innerHTML=`
+      <input name="name" type="text" autocomplete="name" placeholder="Nome" required>
+      <input name="clinic" type="text" autocomplete="organization" placeholder="Clinica ou especialidade">
+      <input name="contact" type="text" autocomplete="email" placeholder="Email ou telefone" required>
+      <textarea name="main_pain" rows="3" placeholder="Principal rotina, decisão ou gargalo" required></textarea>
+      <label><input name="consent" type="checkbox" required> <span>Autorizo o contato para continuidade desta conversa.</span></label>
+      <button type="submit">Enviar contexto</button>`;
+    form.addEventListener("submit",async(event)=>{
+      event.preventDefault();
+      const data=new FormData(form);
+      const contact=String(data.get("contact")||"").trim();
+      const payload={
+        session_id:sessionId,
+        name:String(data.get("name")||"").trim(),
+        company:String(data.get("clinic")||"").trim(),
+        email:contact.includes("@")?contact:"",
+        phone:contact.includes("@")?"":contact,
+        main_pain:String(data.get("main_pain")||"").trim(),
+        consent:data.get("consent")==="on",
+        language:"pt-BR",
+        site:"medmasia"
+      };
+      try{
+        const response=await fetch(`${base}/api/lead`,{
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body:JSON.stringify(payload)
+        });
+        if(!response.ok)throw new Error(`Lead ${response.status}`);
+        form.remove();
+        addMessage("Contexto registrado. A conversa foi marcada para revisão humana.","bot",[{label:"Contato",href:"#contact"}]);
+      }catch(_){
+        addMessage("Não consegui registrar agora. Você também pode usar o email de contato.","bot",[{label:"Email",href:`mailto:${email}`}]);
+      }
+    });
+    log.appendChild(form);
+    log.scrollTop=log.scrollHeight;
+  }
+
+  function findAnswer(question){
+    const q=normalize(question);
+    let best=null;
+    let bestScore=0;
+    copy.entries.forEach((entry)=>{
+      const score=entry.keys.reduce((total,key)=>total+(q.includes(normalize(key))?1:0),0);
+      if(score>bestScore){best=entry;bestScore=score;}
+    });
+    return best||{answer:copy.fallback,links:copy.fallbackLinks};
+  }
+
+  async function ask(question){
+    const clean=String(question||"").trim();
+    if(!clean)return;
+    root.classList.add("is-open");
+    addMessage(clean,"user");
+    const loading=addMessage("Lendo o contexto disponível...","bot");
+    try{
+      const payload=await askBridgeBot(clean);
+      if(payload&&payload.answer){
+        loading.remove();
+        const links=payload.collect_lead?[{label:"Solicitar conversa",href:"#contact"}]:[];
+        addMessage(payload.answer,"bot",links);
+        if(payload.collect_lead)addLeadForm();
+        return;
+      }
+    }catch(_){
+      loading.remove();
+    }
+    const answer=findAnswer(clean);
+    window.setTimeout(()=>addMessage(answer.answer,"bot",answer.links),160);
+  }
+
+  renderShell();
+})();
