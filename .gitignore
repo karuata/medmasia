@@ -2,3 +2,17 @@ node_modules/
 test-results/
 playwright-report/
 .run/
+.env
+.env.*
+private/
+data/
+exports/
+campaigns/
+*.db
+*.sqlite
+*.sqlite3
+*.csv
+*.xls
+*.xlsx
+*.ods
+medicos_enriquecida_rmasini.xlsx

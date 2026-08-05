@@ -6,7 +6,7 @@
   const copy={
     kicker:"Assistente",
     title:"MedMasIA Assistant",
-    intro:"Sou o assistente do MedMasIA. Posso ajudar a entender onde a rotina da clínica está vazando contexto: potenciais pacientes sem retorno, documentos espalhados, decisões sem registro e equipe dependente da memória do médico. Para dados clínicos ou casos sensíveis, o melhor caminho é uma conversa reservada.",
+    intro:"Sou o assistente do MedMasIA. Posso ajudar a entender onde a rotina da clínica está vazando contexto: potenciais pacientes sem retorno, documentos espalhados, decisões sem registro e equipe dependente da memória do médico. Não envie dados clínicos ou dados de pacientes por este chat.",
     placeholder:"Digite sua pergunta",
     sendLabel:"Enviar",
     closeLabel:"Fechar",
@@ -179,7 +179,7 @@
       <input name="name" type="text" autocomplete="name" placeholder="Nome" required>
       <input name="clinic" type="text" autocomplete="organization" placeholder="Clinica ou especialidade">
       <input name="contact" type="text" autocomplete="email" placeholder="Email ou telefone" required>
-      <textarea name="main_pain" rows="3" placeholder="Principal rotina, decisão ou gargalo" required></textarea>
+      <textarea name="main_pain" rows="3" placeholder="Principal rotina, decisão ou gargalo da clínica" required></textarea>
       <label><input name="consent" type="checkbox" required> <span>Autorizo o contato para continuidade desta conversa.</span></label>
       <button type="submit">Enviar contexto</button>`;
     form.addEventListener("submit",async(event)=>{
